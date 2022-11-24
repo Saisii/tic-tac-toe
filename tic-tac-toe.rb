@@ -1,4 +1,5 @@
 p $board = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+$round_number = 0 ##even round numbers are O, odd round numbers are X
 
 def display_board (board) 
     puts " #{$board[0]} | #{$board[1]} | #{$board[2]}"
@@ -11,6 +12,7 @@ end
 display_board ($board)
 
 def player_O_move (board)
+    p "Its round #{$round_number}"
     puts "Where do you want to put an O?"
     choice = gets.chomp.to_i - 1
     p "You chose #{choice + 1}"
@@ -18,41 +20,39 @@ def player_O_move (board)
         puts "Not a valid move. Choose again."
     else
         puts "Its a valid move"
+        $round_number = $round_number + 1
+        $board[choice] = "O" 
     end
-    $board[choice] = "O" 
     display_board (board)
 end
 
 def player_X_move (board)
+    p "Its round #{$round_number}"
     puts "Where do you want to put an X?"
     choice = gets.chomp.to_i - 1
     if $board[choice] == "O" || $board[choice] == "X"
         puts "Not a valid move. Choose again."
     else
         puts "Its a valid move"
+        $round_number = $round_number + 1
+        $board[choice] = "X"
     end
-    $board[choice] = "X"
     display_board (board)
 end
 
-# def is_not_valid_move (move_choice)
-#     p "I am checking on #{$board[move_choice]}"
-#     if $board[move_choice] == "O" || $board[move_choice] == "X"
-#         return true
-#     else
-#         return false
-#     end
-# end
+def play 
+    while $round_number < 9
+        if $round_number % 2 == 0
+            p "It's player O's turn"
+            player_O_move ($board)
+        else
+            p "It's player X's turn"
+            player_X_move ($board)
+        end
+    end
+end
 
 
-player_O_move ($board)
-player_X_move ($board)
-player_O_move ($board)
-player_X_move ($board)
-player_O_move ($board)
-player_X_move ($board)
-player_O_move ($board)
-player_X_move ($board)
-player_O_move ($board)
-player_X_move ($board)
+play 
+
 
