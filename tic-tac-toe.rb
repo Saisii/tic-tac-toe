@@ -42,6 +42,13 @@ end
 
 def play 
     while $round_number < 9
+        if check_win_state == true
+            puts "Play again!"
+            $board = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+            $round_number = 0
+            display_board ($board)
+        end
+
         if $round_number % 2 == 0
             p "It's player O's turn"
             player_O_move ($board)
@@ -50,7 +57,46 @@ def play
             player_X_move ($board)
         end
     end
+
+    puts "It's a tie!"
+    puts "Play again!"
+    $board = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    $round_number = 0
+    display_board ($board)
+    play 
+
 end
+
+def check_win_state
+    if $board[0] == $board[1] && $board[0] == $board[2]
+        puts "Player #{$board[0]} is the winner!"
+        return true
+    elsif $board[3] == $board[4] && $board[3] == $board[5]
+        puts "Player #{$board[3]} is the winner!"
+        return true
+    elsif $board[6] == $board[7] && $board[6] == $board[8]
+        puts "Player #{$board[6]} is the winner!"
+        return true
+    elsif $board[0] == $board[3] && $board[0] == $board[6]
+        puts "Player #{$board[0]} is the winner!"
+        return true
+    elsif $board[1] == $board[4] && $board[1] == $board[7]
+        puts "Player #{$board[1]} is the winner!"
+        return true
+    elsif $board[2] == $board[5] && $board[2] == $board[8]
+        puts "Player #{$board[2]} is the winner!"
+        return true
+    elsif $board[0] == $board[4] && $board[0] == $board[8]
+        puts "Player #{$board[0]} is the winner!"
+        return true
+    elsif $board[2] == $board[4] && $board[2] == $board[6]
+        puts "Player #{$board[2]} is the winner!"
+        return true
+    end
+end
+
+
+
 
 
 play 
